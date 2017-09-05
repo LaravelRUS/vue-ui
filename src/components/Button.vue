@@ -15,6 +15,7 @@
             box-sizing: border-box;
             padding: 0 $ui-padding;
             outline: none;
+            cursor: pointer;
             border: none;
             background: none;
             text-decoration: none;
@@ -42,7 +43,7 @@
             }
 
             &:hover {
-                box-shadow: 0 0 0 1px darken($color-main-hover, 10%);
+                box-shadow: 0 0 0 1px $color-main-hover;
                 background: $color-main-text;
             }
 
@@ -72,20 +73,20 @@
         &[data-type="simple"] {
             a, button {
                 border-radius: 3px;
-                box-shadow: 0 0 0 1px $color-main;
+                box-shadow: 0 0 0 1px $color-border;
                 color: $color-main;
                 background: $color-white;
 
                 &:hover {
-                    box-shadow: 0 0 0 1px darken($color-main-hover, 15%);
+                    box-shadow: 0 0 0 1px $color-border-hover;
                     color: $color-main-text;
                     background: $color-bg;
                 }
 
                 &:active {
                     transition: none !important;
-                    box-shadow: 0 0 0 1px desaturate(darken($color-main, 20%), 30%);
-                    color: desaturate(darken($color-main, 20%), 30%);
+                    box-shadow: 0 0 0 1px $color-main;
+                    color: $color-main;
                 }
 
                 &[disabled],

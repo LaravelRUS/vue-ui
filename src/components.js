@@ -14,6 +14,8 @@ export default {
      * UI Elements
      */
     'text':     'Text',
+    'select':   'Select',
+    'option':   'Option',
     'button':   'Button',
     'checkbox': 'Checkbox',
     'password': 'Password',

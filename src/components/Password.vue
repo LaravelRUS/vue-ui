@@ -9,22 +9,22 @@
             border: none;
             outline: none;
             display: block;
-            padding: 2px;
             border-radius: 50%;
             margin: 0;
-            will-change: box-shadow;
-            height: 32px;
-            transform: scale(1);
+            height: $ui-min-height;
             position: relative;
             cursor: pointer;
             background: rgba(#fff, .8);
 
             svg {
+                transition: fill .2s ease;
                 fill: $color-border;
-                width: 18px;
-                height: 18px;
+                width: $ui-min-height;
+                height: $ui-min-height;
+                display: block;
             }
 
+            &:after,
             &:before {
                 content: '';
                 position: absolute;
@@ -38,24 +38,29 @@
                 margin: -1px 0 0 -1px;
             }
 
-            &:active {
-                transform: scale(.9);
+            &:after {
+                transition: opacity .1s $ui-animation-swift, box-shadow .3s ease;
+                opacity: 1;
+                box-shadow: 0 0 1px 18px rgba($color-main, 0);
             }
         }
 
         &.password-visible {
             .show-password {
-                transform: scale(1);
-                transition: transform .2s $ui-animation-swift;
-
                 svg {
                     fill: $color-main !important;
                 }
 
                 &:before {
-                    transition: opacity .1s $ui-animation-swift, box-shadow .5s ease;
+                    transition: opacity .1s $ui-animation-swift, box-shadow .3s ease;
                     opacity: 1;
                     box-shadow: 0 0 1px 18px rgba($color-main, 0);
+                }
+
+                &:after {
+                    transition: none;
+                    box-shadow: 0 0 0 0 rgba($color-main, 1);
+                    opacity: 0;
                 }
             }
         }

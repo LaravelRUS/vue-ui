@@ -13,7 +13,7 @@
         }
     }
 
-    $size: 24px;
+    $size: $ui-min-height;
     $size-div-2: $size / 2;
 
     .loader {

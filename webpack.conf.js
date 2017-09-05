@@ -1,9 +1,11 @@
+const webpack = require('webpack');
+
 module.exports = require('./webpack.base.js')({
-    devtool: 'source-map',
+    devtool: 'cheap-module-source-map',
     entry:   `${__dirname}/src/index`,
     out:     {
         path: `${__dirname}/dist/`,
-        file: 'index'
+        file: 'laravel-ui.min'
     },
     resolve: [
         `${__dirname}/src`,
@@ -13,7 +15,11 @@ module.exports = require('./webpack.base.js')({
         vue: 'vue/dist/vue.js'
     },
     plugins: [
-
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        })
     ],
     rules: []
 });

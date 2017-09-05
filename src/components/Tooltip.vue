@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
     @import "kernel";
 
-    $size: 26px;
+    $size: $ui-min-height + 4px;
     $color: rgba($color-extra-light-black, .92);
     $text: $color-white;
 
@@ -16,7 +16,7 @@
         max-width: 200px;
         line-height: $size;
         height: $size;
-        padding: 0 10px;
+        padding: 0 $ui-padding;
         border-radius: 2px;
         font-weight: normal;
         font-style: normal;
@@ -24,7 +24,6 @@
         text-transform: none;
         opacity: 0;
         white-space: nowrap;
-        text-shadow: 0 -1px 0 $color-black;
         transition:
             transform .3s $ui-animation-swift .2s,
             opacity .3s $ui-animation-swift .2s;

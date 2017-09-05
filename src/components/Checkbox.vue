@@ -12,6 +12,10 @@
         label {
             display: flex;
             cursor: pointer;
+
+            &:hover .icon {
+                box-shadow: 0 0 0 1px $color-border-hover;
+            }
         }
 
         .icon {
@@ -19,7 +23,6 @@
             width: $size;
             height: $size;
             line-height: $size;
-            cursor: pointer;
             position: relative;
             border-radius: 1px;
             background: $color-white;
@@ -53,7 +56,8 @@
             }
 
             &.checked {
-                box-shadow: 0 0 0 1px $color-main;
+                box-shadow: 0 0 0 1px $color-main !important;
+
                 &:after {
                     transform: scale(1) translateY(0) rotate(0deg);
                     color: $color-main;
@@ -74,11 +78,15 @@
             user-select: none;
         }
 
-        .disabled {
+        .disabled,
+        .disabled:hover {
             cursor: default;
             .icon {
                 background: $color-light-gray;
                 box-shadow: 0 0 0 1px $color-gray;
+            }
+            input {
+                cursor: default;
             }
             .description {
                 color: $color-disabled;

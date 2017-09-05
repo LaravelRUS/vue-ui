@@ -31,6 +31,7 @@ $color-bg: $color-dark-white;
 $color-text: $color-extra-light-black;
 $color-description: $color-light-silver;
 $color-border: $color-light-gray;
+$color-border-hover: $color-gray;
 
 $color-disabled: $color-light-silver;
 $color-disabled-hover: $color-disabled;
@@ -59,4 +60,4 @@ $color-success-text: desaturate(darken($color-green, 5%), 15%);
 /**
  * Common
  */
-$ui-box-shadow: 0 3px 8px rgba($color-black, .13) !default;
+$ui-box-shadow: 0 5px 13px rgba($color-black, .1) !default;

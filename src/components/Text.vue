@@ -19,6 +19,10 @@
             border-radius: 2px;
             z-index: 1;
 
+            &:hover {
+                box-shadow: 0 0 0 1px $color-border-hover;
+            }
+
             & /deep/ .loader {
                 border-color: $color-main;
                 .spinner {
@@ -97,7 +101,7 @@
         &.active {
             .placeholder {
                 color: $color-text;
-                transform: translate(-16px, -32px) scale(.82);
+                transform: translate(-$ui-padding, -$ui-height + 6px) scale(.82);
                 transition: transform .3s cubic-bezier(0.245, 1.600, 0.560, 0.925),
                 color .3s $ui-animation-swift;
             }
@@ -115,7 +119,7 @@
 </style>
 
 <template>
-    <section class="input" v-bind:class="{
+    <section class="input" :class="{
         active: isActive,
         focus: isFocus,
         disabled: disabled
