@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>LaravelRUS UI &mdash; Компоненты</title>
+    <link rel="icon" href="favicon.png"/>
+
+    <!-- Load Vendor Libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css@7.0.0/normalize.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,400i,700,700i&subset=cyrillic"/>
+    <script src="https://unpkg.com/vue"></script>
+
+    <!-- Load an Application files -->
+    <link rel="stylesheet" href="./index.css"/>
+    <script src="./index.js"></script>
+
+    <!-- An Example styles -->
+    <style>
+        #app {
+            width: 960px;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<main id="app">
+    <h1>LaravelRUS UI</h1>
+
+    <!-- HEADINGS -->
+
+    <h2>
+        <a href="#headings" name="headings" class="anchor"></a>
+        Headings
+    </h2>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Тег</td>
+                <td>Пример</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <code>&lt;h1&gt;</code>
+                </td>
+                <td>
+                    <h1>Header 1</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;h2&gt;</code>
+                </td>
+                <td>
+                    <h2>Header 2</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;h3&gt;</code>
+                </td>
+                <td>
+                    <h3>Header 3</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;h4&gt;</code>
+                </td>
+                <td>
+                    <h4>Header 4</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;h5&gt;</code>
+                </td>
+                <td>
+                    <h5>Header 5</h5>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;h6&gt;</code>
+                </td>
+                <td>
+                    <h6>Header 6</h6>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;h&hellip; class="underline"&gt;</code>
+                </td>
+                <td>
+                    &hellip;
+                    <h3 class="underline">Header 3</h3>
+                    &hellip;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;h&hellip;&gt;&lt;a class="anchor"&gt;</code>
+                </td>
+                <td>
+                    &hellip;
+                    <h3>
+                        <a href="#example-h3" name="example-h3" class="anchor"></a>
+                        Header 3
+                    </h3>
+                    &hellip;
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- BUTTON -->
+
+    <h2>
+        <a href="#button" name="button" class="anchor"></a>
+        Button
+    </h2>
+
+    <h3>Свойства</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Тип</td>
+                <td>Значение по умолчанию</td>
+                <td>Описание</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>disabled</code></td>
+                <td><code>Boolean</code></td>
+                <td><code>false</code></td>
+                <td>Отключаем кнопку/ссылку</td>
+            </tr>
+            <tr>
+                <td><code>loading</code></td>
+                <td><code>Boolean</code></td>
+                <td><code>false</code></td>
+                <td>Показывать индикатор загрузки</td>
+            </tr>
+            <tr>
+                <td><code>title</code></td>
+                <td><code>String</code></td>
+                <td><code>null</code></td>
+                <td>Текст тултипа</td>
+            </tr>
+            <tr>
+                <td><code>name</code></td>
+                <td><code>String</code></td>
+                <td><code>""</code></td>
+                <td>Имя компонента</td>
+            </tr>
+            <tr>
+                <td><code>type</code></td>
+                <td>
+                    Одно из:
+                    <ul>
+                        <li><code>"primary"</code></li>
+                        <li><code>"simple"</code></li>
+                    </ul>
+                </td>
+                <td><code>"primary"</code></td>
+                <td>Тип стиля кнопки</td>
+            </tr>
+            <tr>
+                <td><code>href</code></td>
+                <td><code>String</code></td>
+                <td><code>null</code></td>
+                <td>Если указан href, то кнопка будет ссылкой</td>
+            </tr>
+            <tr>
+                <td><code>target</code></td>
+                <td>
+                    Одно из:
+                    <ul>
+                        <li><code>"blank"</code></li>
+                        <li><code>"parent"</code></li>
+                        <li><code>"self"</code></li>
+                        <li><code>"top"</code></li>
+                    </ul>
+                </td>
+                <td><code>"self"</code></td>
+                <td>Атрибут target для ссылки, если указан атрибут href</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>События</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Описание</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>@click</code></td>
+                <td>Происходит при нажатии на кнопку</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Примеры</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Тип</td>
+                <td>Пример</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <code>&lt;ui-button&gt;</code>
+                </td>
+                <td>
+                    <ui-button>Primary</ui-button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-button title="Hover me"&gt;</code>
+                </td>
+                <td>
+                    <ui-button title="Hover me">Primary</ui-button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-button :disabled="true"&gt;</code>
+                </td>
+                <td>
+                    <ui-button :disabled="true">Primary</ui-button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-button :loading="true"&gt;</code>
+                </td>
+                <td>
+                    <ui-button :loading="true">Loading&hellip;</ui-button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-button type="simple"&gt;</code>
+                </td>
+                <td>
+                    <ui-button type="simple">Simple</ui-button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-button type="simple" :disabled="true"&gt;</code>
+                </td>
+                <td>
+                    <ui-button type="simple" :disabled="true">Simple</ui-button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-button type="simple" :loading="true"&gt;</code>
+                </td>
+                <td>
+                    <ui-button type="simple" :loading="true">Loading&hellip;</ui-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- TEXT -->
+
+    <h2>
+        <a href="#input" name="input" class="anchor"></a>
+        Text Input
+    </h2>
+
+    <h3>Свойства</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Тип</td>
+                <td>Значение по умолчанию</td>
+                <td>Описание</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>disabled</code></td>
+                <td><code>Boolean</code></td>
+                <td><code>false</code></td>
+                <td>Отключаем кнопку/ссылку</td>
+            </tr>
+            <tr>
+                <td><code>loading</code></td>
+                <td><code>Boolean</code></td>
+                <td><code>false</code></td>
+                <td>Показывать индикатор загрузки</td>
+            </tr>
+            <tr>
+                <td><code>title</code></td>
+                <td><code>String</code></td>
+                <td><code>null</code></td>
+                <td>Текст тултипа</td>
+            </tr>
+            <tr>
+                <td><code>placeholder</code></td>
+                <td><code>String</code></td>
+                <td><code>null</code></td>
+                <td>Описание поля</td>
+            </tr>
+            <tr>
+                <td><code>name</code></td>
+                <td><code>String</code></td>
+                <td><code>""</code></td>
+                <td>Имя компонента</td>
+            </tr>
+            <tr>
+                <td><code>value</code></td>
+                <td><code>String</code></td>
+                <td><code>""</code></td>
+                <td>Значение компонента</td>
+            </tr>
+            <tr>
+                <td><code>type</code></td>
+                <td>
+                    Одно из:
+                    <ul>
+                        <li><code>"text"</code></li>
+                        <li><code>"email"</code></li>
+                        <li><code>"tel"</code></li>
+                        <li><code>"url"</code></li>
+                        <li><code>"search"</code></li>
+                    </ul>
+                </td>
+                <td><code>"text"</code></td>
+                <td>Тип текстового поля</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>События</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Описание</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>@input</code></td>
+                <td>Происходит при нажатии измении значения текстового поля</td>
+            </tr>
+            <tr>
+                <td><code>@focus</code></td>
+                <td>Происходит при получении фокуса</td>
+            </tr>
+            <tr>
+                <td><code>@blur</code></td>
+                <td>Происходит при сбросе фокуса</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Примеры</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Тип</td>
+                <td>Пример</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <code>&lt;ui-text value="Example"&gt;</code>
+                </td>
+                <td>
+                    <ui-text value="Example"></ui-text>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-text title="Hover me" placeholder="Write here something..."&gt;</code>
+                </td>
+                <td>
+                    <br />
+                    <ui-text title="Hover me" placeholder="Write here something..."></ui-text>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-text :disabled="true"&gt;</code>
+                </td>
+                <td>
+                    <ui-text :disabled="true" value="Disabled"></ui-text>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-text :loading="true"&gt;</code>
+                </td>
+                <td>
+                    <ui-text :loading="true" value="Loading..."></ui-text>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- PASSWORD -->
+
+    <h2>
+        <a href="#password" name="password" class="anchor"></a>
+        Password Input
+    </h2>
+
+    <h3>Свойства</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Тип</td>
+                <td>Значение по умолчанию</td>
+                <td>Описание</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4">
+                    Все свойства полностью наследуются из <code>&lt;ui-text&gt;</code>
+                </td>
+            </tr>
+            <tr>
+                <td><code>tipShow</code></td>
+                <td><code>Boolean</code></td>
+                <td><code>"Show password"</code></td>
+                <td>Тултип с описанием состояния скрытого пароля</td>
+            </tr>
+            <tr>
+                <td><code>tipHide</code></td>
+                <td><code>String</code></td>
+                <td><code>"Hide password"</code></td>
+                <td>Тултип с описанием состояния видимого пароля</td>
+            </tr>
+            <tr>
+                <td><code>tipVisible</code></td>
+                <td><code>String</code></td>
+                <td><code>"visible"</code></td>
+                <td>Суффикс для плейсхоледра, если пароль видимый</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>События</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Описание</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    Все события наследуются из <code>&lt;ui-text&gt;</code>
+                </td>
+            </tr>
+            <tr>
+                <td><code>@change-visibility</code></td>
+                <td>Происходит при смене "видимости" пароля</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Примеры</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Тип</td>
+                <td>Пример</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <code>&lt;ui-password value="password"&gt;</code>
+                </td>
+                <td>
+                    <ui-password value="password"></ui-password>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-password value="password"
+                        tip-show="Показать пароль"
+                        tip-hide="Скрыть пароль"&gt;</code>
+                </td>
+                <td>
+                    <ui-password value="password"
+                         tip-show="Показать пароль"
+                         tip-hide="Скрыть пароль"
+                    ></ui-password>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-password placeholder="Введите пароль" tip-visible="отображается"&gt;</code>
+                </td>
+                <td>
+                    <br />
+                    <ui-password placeholder="Введите пароль" tip-visible="видно"></ui-password>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- CHECKBOX -->
+
+    <h2>
+        <a href="#checkbox" name="checkbox" class="anchor"></a>
+        Checkbox
+    </h2>
+
+    <h3>Свойства</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Тип</td>
+                <td>Значение по умолчанию</td>
+                <td>Описание</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>disabled</code></td>
+                <td><code>Boolean</code></td>
+                <td><code>false</code></td>
+                <td>Отключаем чекбокс</td>
+            </tr>
+            <tr>
+                <td><code>title</code></td>
+                <td><code>String</code></td>
+                <td><code>null</code></td>
+                <td>Текст тултипа</td>
+            </tr>
+            <tr>
+                <td><code>name</code></td>
+                <td><code>String</code></td>
+                <td><code>''</code></td>
+                <td>Имя компонента</td>
+            </tr>
+            <tr>
+                <td><code>checked</code></td>
+                <td><code>Boolean</code></td>
+                <td><code>false</code></td>
+                <td>Поставить галочку изначально</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>События</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Описание</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>@change</code></td>
+                <td>Происходит при изменении состояния <code>checked</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Примеры</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Тип</td>
+                <td>Пример</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <code>&lt;ui-checkbox&gt;</code>
+                </td>
+                <td>
+                    <ui-checkbox>Checkbox</ui-checkbox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-checkbox title="Hover me"&gt;</code>
+                </td>
+                <td>
+                    <ui-checkbox title="Hover me">Checkbox</ui-checkbox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-checkbox :checked="true"&gt;</code>
+                </td>
+                <td>
+                    <ui-checkbox :checked="true">Checked</ui-checkbox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>&lt;ui-checkbox :disabled="true"&gt;</code>
+                </td>
+                <td>
+                    <ui-checkbox :disabled="true">
+                        По-настоящему CSS расшифровывается
+                        как «Ceaseless Screaming of the Sinner»
+                    </ui-checkbox>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ui-password></ui-password>
+</main>
+
+<script>
+    new Vue({
+        el: '#app'
+    })
+</script>
+</body>
+</html>
