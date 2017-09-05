@@ -1,0 +1,62 @@
+/**
+ * Colors
+ */
+$color-red: #ff4a22 !default;
+$color-orange: #f4645f !default;
+$color-yellow: #d9a910 !default;
+$color-green: #28bc00 !default;
+$color-blue: #64b5f6 !default;
+$color-purple: #a184d5 !default;
+$color-pink: #ba6380 !default;
+
+/**
+ * Grayscale
+ */
+$color-black: #1F2d3d !default;
+$color-light-black: #324057 !default;
+$color-extra-light-black: #475669 !default;
+$color-silver: #8492a6 !default;
+$color-light-silver: #99a9bf !default;
+$color-extra-light-silver: #c0ccda !default;
+$color-gray: #d3dce6 !default;
+$color-light-gray: #e5e9f2 !default;
+$color-extra-light-gray: #eff2f7 !default;
+$color-dark-white: #f9fafc !default;
+$color-white: #fff !default;
+
+/**
+ * Semantic colors
+ */
+$color-bg: $color-dark-white;
+$color-text: $color-extra-light-black;
+$color-description: $color-light-silver;
+$color-border: $color-light-gray;
+
+$color-disabled: $color-light-silver;
+$color-disabled-hover: $color-disabled;
+$color-disabled-text: $color-dark-white;
+
+$color-light-disabled: $color-extra-light-gray;
+$color-light-disabled-hover: $color-light-disabled;
+$color-light-disabled-text: $color-gray;
+
+$color-main: $color-orange;
+$color-main-hover: lighten($color-orange, 2%);
+$color-main-text: desaturate(darken($color-orange, 5%), 15%);
+
+$color-alert: $color-red;
+$color-alert-hover: lighten($color-red, 2%);
+$color-alert-text: desaturate(darken($color-red, 5%), 15%);
+
+$color-warning: $color-yellow;
+$color-warning-hover: lighten($color-yellow, 2%);
+$color-warning-text: desaturate(darken($color-yellow, 5%), 15%);
+
+$color-success: $color-green;
+$color-success-hover: lighten($color-green, 2%);
+$color-success-text: desaturate(darken($color-green, 5%), 15%);
+
+/**
+ * Common
+ */
+$ui-box-shadow: 0 3px 8px rgba($color-black, .13) !default;

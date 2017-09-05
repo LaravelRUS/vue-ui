@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+/**
+ * Load kernel
+ */
+@import "kernel";
+
+html,
+body {
+  @include font-optimize;
+  width: 100%;
+  color: $color-text;
+  line-height: $ui-min-height;
+  min: {
+    height: 100%;
+    width: 320px;
+  }
+  font: {
+    size: $font-size;
+    family: $font-family;
+  }
+
+  a {
+    color: $color-main;
+    outline: none;
+    text-decoration: none;
+
+    &:active,
+    &:hover {
+      color: $color-main-text;
+      background: none;
+      text-decoration: underline;
+    }
+  }
+
+  pre, code {
+    font: {
+      size: 12px;
+      family: $font-mono;
+    }
+  }
+
+  code {
+    color: lighten($color-text, 10%);
+    background: $color-extra-light-gray;
+    border-radius: 2px;
+    padding: 2px 6px;
+    box-sizing: border-box;
+    line-height: $ui-min-height;
+    height: $ui-min-height;
+  }
+
+  ul {
+    li {
+      list-style: square;
+      margin: 4px 0;
+    }
+  }
+
+  pre > code {
+
+  }
+
+  hr {
+    border: none;
+    margin: 10px 0;
+    display: block;
+    height: 1px;
+    background: $color-border;
+  }
+
+  @import "ui/headings";
+  @import "ui/table";
+}
