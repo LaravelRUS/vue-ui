@@ -67,21 +67,20 @@
             padding: 4px 0;
             z-index: 98;
             box-shadow:
-                0 -1px $color-white,
-                0 0 0 1px $color-border,
+                0 -1px 0 0 $color-white,
+                0 0 0 1px $color-border-hover,
                 $ui-box-shadow;
             pointer-events: none;
             opacity: 0;
             transform: translateY(-10px);
             transition:
-                box-shadow .2s $ui-animation-swift,
                 opacity .2s $ui-animation-swift,
                 transform .2s $ui-animation-swift;
         }
 
         &.active {
             .current {
-                box-shadow: 0 0 0 1px $color-main;
+                box-shadow: 0 0 0 1px $color-border-hover;
                 border-radius: 2px 2px 0 0;
 
                 .value {
@@ -89,7 +88,7 @@
                 }
 
                 .arrow {
-                    transform: rotateZ(-180deg);
+                    transform: rotateZ(-180deg) scale(.7);
                     svg {
                         fill: $color-main;
                     }
@@ -97,15 +96,10 @@
             }
 
             .dropdown {
-                box-shadow:
-                    0 -1px $color-border,
-                    0 0 0 1px $color-main,
-                    $ui-box-shadow;
                 pointer-events: all;
                 opacity: 1;
                 transform: translateY(0);
                 transition:
-                    box-shadow .3s $ui-animation-swift,
                     opacity .3s $ui-animation-swift,
                     transform .3s $ui-animation-swift;
             }

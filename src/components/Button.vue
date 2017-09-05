@@ -28,7 +28,7 @@
             letter-spacing: 1px;
             white-space: nowrap;
             text-overflow: ellipsis;
-            box-shadow: 0 0 0 1px $color-main;
+            box-shadow: 0 0 0 1px darken($color-main-text, 10%);
             font: {
                 size: $font-size - 1px;
                 family: $font-family;
@@ -43,8 +43,8 @@
             }
 
             &:hover {
-                box-shadow: 0 0 0 1px $color-main-hover;
-                background: $color-main-text;
+                box-shadow: 0 0 0 1px $color-main-text;
+                background: $color-main-hover;
             }
 
             &:active {
@@ -74,27 +74,25 @@
             a, button {
                 border-radius: 3px;
                 box-shadow: 0 0 0 1px $color-border;
-                color: $color-main;
+                color: $color-text;
                 background: $color-white;
 
                 &:hover {
                     box-shadow: 0 0 0 1px $color-border-hover;
-                    color: $color-main-text;
                     background: $color-bg;
                 }
 
                 &:active {
                     transition: none !important;
                     box-shadow: 0 0 0 1px $color-main;
-                    color: $color-main;
                 }
 
                 &[disabled],
                 &:disabled {
                     cursor: default;
-                    box-shadow: 0 0 0 1px $color-disabled;
-                    color: $color-disabled;
-                    background: $color-bg;
+                    box-shadow: 0 0 0 1px $color-border-hover;
+                    color: $color-white;
+                    background: $color-border;
                 }
             }
         }

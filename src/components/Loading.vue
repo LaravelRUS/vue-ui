@@ -21,9 +21,8 @@
         width: 100%;
         height: 100%;
         z-index: 5;
-        border-radius: 3px;
+        border-radius: 2px;
         background: rgba(#fff, .6);
-        box-shadow: 0 0 0 1px rgba(#fff, .6);
         position: absolute;
 
         .spinner {
