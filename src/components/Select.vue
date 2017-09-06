@@ -157,7 +157,7 @@
         <ui-loading v-if="loading"></ui-loading>
 
         <section class="current" @mouseover="hover(true)" @mouseleave="hover(false)" @click="toggle">
-            <ui-tooltip direction="left" v-if="title">{{ title }}</ui-tooltip>
+            <ui-tooltip direction="top" v-if="title">{{ title }}</ui-tooltip>
 
             <span v-if="text" class="value">{{ text }}</span>
             <span v-else="text" class="value default">{{ placeholder }}</span>

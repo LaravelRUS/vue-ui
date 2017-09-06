@@ -208,13 +208,13 @@
         </tr>
         <tr>
             <td>
-                <pre><code><?=htmlspecialchars('<ui-select :disabled="true">
+                <pre><code><?=htmlspecialchars('<ui-select :disabled="true" title="Tooltip example text">
     <ui-option :default="true" value="1">Selected value</ui-option>
     <ui-option value="2">Other value</ui-option>
 </ui-select>')?></code></pre>
             </td>
             <td>
-                <ui-select :disabled="true">
+                <ui-select :disabled="true" title="Tooltip example text">
                     <ui-option :default="true" value="1">Selected value</ui-option>
                     <ui-option value="2">Other value</ui-option>
                 </ui-select>
@@ -222,12 +222,12 @@
         </tr>
         <tr>
             <td>
-                <pre><code><?=htmlspecialchars('<ui-select :loading="true" title="Tooltip example text">
+                <pre><code><?=htmlspecialchars('<ui-select :loading="true">
     <ui-option :default="true" value="1">Selected value</ui-option>
 </ui-select>')?></code></pre>
             </td>
             <td>
-                <ui-select :loading="true" title="Tooltip example text">
+                <ui-select :loading="true">
                     <ui-option value="1">This is an example</ui-option>
                 </ui-select>
             </td>

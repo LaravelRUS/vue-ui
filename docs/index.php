@@ -49,6 +49,9 @@
         <!-- PASSWORD -->
         <?php require __DIR__ . '/partials/select.php'; ?>
 
+        <!-- TOOLTIP -->
+        <?php require __DIR__ . '/partials/tooltip.php'; ?>
+
         <!-- CHECKBOX -->
         <?php require __DIR__ . '/partials/checkbox.php'; ?>
     </main>

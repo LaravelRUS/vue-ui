@@ -9,7 +9,7 @@
         position: absolute;
         background: $color;
         color: $text;
-        font-size: 12px;
+        font-size: $font-size - 2px;
         width: auto !important;
         display: block;
         float: left;
@@ -24,6 +24,7 @@
         text-transform: none;
         opacity: 0;
         white-space: nowrap;
+        user-select: none;
         transition:
             transform .3s $ui-animation-swift .2s,
             opacity .3s $ui-animation-swift .2s;
@@ -52,6 +53,19 @@
             }
         }
 
+        &.direction-top {
+            left: 50%;
+            transform: translate(-50%, -$size * 2) scale(.9);
+            top: 0;
+
+            &:before {
+                border-top-color: $color;
+                bottom: -10px;
+                left: 50%;
+                margin-left: -5px;
+            }
+        }
+
         &.direction-left {
             left: 0;
             top: 50%;
@@ -61,6 +75,20 @@
             &:before {
                 border-left-color: $color;
                 right: -10px;
+                top: 50%;
+                margin-top: -5px;
+            }
+        }
+
+        &.direction-right {
+            right: 0;
+            top: 50%;
+            margin-right: -10px;
+            transform: translate(80%, -50%) scale(.9);
+
+            &:before {
+                border-right-color: $color;
+                left: -10px;
                 top: 50%;
                 margin-top: -5px;
             }
@@ -77,8 +105,16 @@
             transform: translate(-50%, $size + 10px) scale(1);
         }
 
+        &.direction-top {
+            transform: translate(-50%, -$size - 10px) scale(1);
+        }
+
         &.direction-left {
             transform: translate(-100%, -50%) scale(1);
+        }
+
+        &.direction-right {
+            transform: translate(100%, -50%) scale(1);
         }
     }
 </style>
@@ -90,12 +126,11 @@
 </template>
 
 <script>
+    import Enum from "kernel/Enum";
+
     export default {
         props: {
-            direction: {
-                type: String,
-                default: 'bottom'
-            }
+            direction: Enum(['left', 'bottom', 'top', 'right'], 'bottom')
         }
     }
 </script>
