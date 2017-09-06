@@ -5,9 +5,8 @@
                 type: String,
                 required: true
             },
-            value: {
-                type: String,
-                default: ''
+            initialValue: {
+                type: String
             }
         },
         render: function(createElement) {
@@ -15,8 +14,8 @@
             return createElement('input',
                 {
                     domProps: {
-                        type: component.tag,
-                        value: component.value
+                        type: this.tag,
+                        value: this.initialValue || component.value
                     },
                     on: {
                         input: function(event) {

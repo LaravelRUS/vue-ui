@@ -134,7 +134,7 @@
 
             <ui-loading v-if="loading"></ui-loading>
 
-            <v-input v-model="internalValue" :value="value" @input="onInput" @blur="onBlur" @focus="onFocus"
+            <v-input v-model="internalValue" :initial-value="value" @input="onInput" @blur="onBlur" @focus="onFocus"
                 :name="name"
                 :tag="type"
                 :disabled="disabled"></v-input>
