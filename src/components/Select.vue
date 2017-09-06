@@ -5,6 +5,7 @@
         @include component();
 
         .current {
+            min-width: 100px;
             padding: 0 ($ui-padding + $ui-height) 0 $ui-padding;
             border-radius: 2px;
             box-shadow: 0 0 0 1px $color-border;
@@ -13,6 +14,12 @@
             background: $color-white;
             cursor: pointer;
             user-select: none;
+
+            .value {
+                &.default {
+                    color: $color-extra-light-silver !important;
+                }
+            }
 
             .arrow {
                 top: 0;
@@ -59,12 +66,12 @@
         }
 
         .dropdown {
-            top: $ui-height;
+            min-width: 100px;
             background: #fff;
             position: absolute;
             width: 100%;
             border-radius: 0 0 2px 2px;
-            padding: 4px 0;
+            padding: 3px 0;
             z-index: 98;
             box-shadow:
                 0 -1px 0 0 $color-white,
@@ -72,10 +79,25 @@
                 $ui-box-shadow;
             pointer-events: none;
             opacity: 0;
+            overflow-x: visible;
+            overflow-y: auto;
             transform: translateY(-10px);
             transition:
                 opacity .2s $ui-animation-swift,
                 transform .2s $ui-animation-swift;
+
+            &::-webkit-scrollbar {
+                width: 3px;
+
+                &-thumb {
+                    border-radius: 1px;
+                    background: $color-border;
+
+                    &:hover {
+                        background: $color-main;
+                    }
+                }
+            }
         }
 
         &.active {
@@ -104,13 +126,26 @@
                     transform .3s $ui-animation-swift;
             }
         }
+
+        & /deep/ .loader {
+            border-color: $color-main;
+            .spinner {
+                box-shadow: none;
+            }
+        }
     }
 </style>
 
 <template>
-    <section class="select" :class="{active: isActive}">
+    <section class="select" :class="{active: isActive, disabled: disabled}">
+        <input type="hidden" :name="name" :value="value" v-if="value" />
+        <ui-loading v-if="loading"></ui-loading>
+
         <section class="current" @mouseover="hover(true)" @mouseleave="hover(false)" @click="toggle">
-            <span class="value">Выпадашка</span>
+            <ui-tooltip direction="left" v-if="title">{{ title }}</ui-tooltip>
+
+            <span v-if="text" class="value">{{ text }}</span>
+            <span v-else="text" class="value default">{{ placeholder }}</span>
 
             <button class="arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 284.929 284.929">
@@ -123,7 +158,7 @@
             </button>
         </section>
 
-        <section class="dropdown">
+        <section class="dropdown" :style="{'max-height': (size * 30 + 6) + 'px'}">
             <slot></slot>
         </section>
     </section>
@@ -142,6 +177,22 @@
             active: {
                 type: Boolean,
                 default: false,
+            },
+
+            /**
+             * Maximum elements
+             */
+            size: {
+                type: Number,
+                default: 5
+            },
+
+            /**
+             * Value for empty element
+             */
+            placeholder: {
+                type: String,
+                default: 'Select a value...'
             }
         },
         computed: {
@@ -157,8 +208,10 @@
         },
         data() {
             return {
-                isActive: this.active,
+                text: '',
+                value: null,
                 over: false,
+                isActive: this.active,
             };
         },
         mounted: function () {
@@ -169,6 +222,10 @@
                     }
                 }, false);
             });
+
+            this.$on('-option-select', value => {
+                this.select(value);
+            })
         },
         methods: {
             toggle() {
@@ -182,6 +239,12 @@
             },
             hover(status) {
                 this.over = status;
+            },
+            select(value) {
+                this.value = value.value || null;
+                this.text = value.text || '';
+
+                this.$emit('select', this.value);
             }
         }
     }

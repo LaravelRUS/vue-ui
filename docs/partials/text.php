@@ -1,6 +1,6 @@
 <h2>
     <a href="#input" name="input" class="anchor"></a>
-    Text Input
+    Input
 </h2>
 
 <h3>Свойства</h3>

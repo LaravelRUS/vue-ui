@@ -24,9 +24,10 @@
             }
 
             & /deep/ .loader {
+                box-shadow: 0 0 0 1px $color-border;
                 border-color: $color-main;
                 .spinner {
-                    box-shadow: inset 0 0 0 2px $color-border;
+                    box-shadow: none;
                 }
             }
         }

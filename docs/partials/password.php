@@ -1,6 +1,6 @@
 <h2>
     <a href="#password" name="password" class="anchor"></a>
-    Password Input
+    Password
 </h2>
 
 <h3>Свойства</h3>

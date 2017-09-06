@@ -9,6 +9,7 @@
     <!-- Load Vendor Libraries -->
     <link rel="stylesheet" href="https://unpkg.com/normalize.css@7.0.0/normalize.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,400i,700,700i&subset=cyrillic"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700,700i" />
     <script src="https://unpkg.com/vue"></script>
 
     <!-- Load an Application files -->
