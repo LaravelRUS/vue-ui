@@ -133,6 +133,21 @@
                 box-shadow: none;
             }
         }
+
+        &.disabled {
+            .current {
+                box-shadow: 0 0 0 1px $color-disabled;
+                background: $color-extra-light-gray;
+                cursor: default !important;
+                .value,
+                .value.default {
+                    color: $color-disabled !important;
+                }
+                .arrow svg {
+                    fill: $color-disabled;
+                }
+            }
+        }
     }
 </style>
 
@@ -229,10 +244,14 @@
         },
         methods: {
             toggle() {
-                this.isActive = !this.isActive;
+                if (!this.disabled && !this.loading) {
+                    this.isActive = !this.isActive;
+                }
             },
             show() {
-                this.isActive = true;
+                if (!this.disabled && !this.loading) {
+                    this.isActive = true;
+                }
             },
             hide() {
                 this.isActive = false;
