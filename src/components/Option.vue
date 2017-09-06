@@ -71,17 +71,17 @@
             text: {
                 type:    String,
                 default: ''
-            },
+            }
         },
         data() {
-            return {
-                visible: true
-            };
+            return { visible: true };
         },
         mounted: function () {
             if (this.default) {
                 this.$nextTick(() => {
                     this.select();
+
+                    this.$on('-toggle-visibility', state => console.log(state));
                 });
             }
         },

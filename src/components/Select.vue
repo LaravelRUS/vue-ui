@@ -255,7 +255,7 @@
             <div class="options" :style="{'max-height': sizeToHeight + 'px'}">
                 <slot></slot>
             </div>
-            <template v-if="searchEnabled">
+            <template v-if="searchEnabled && searchHiddenItems > 0">
                 <ui-button view="flat" @click="resetSearch" class="search-results">
                     {{ searchFormattedDescriptionReset }}
                 </ui-button>
@@ -391,7 +391,11 @@
             })
         },
         methods: {
-            toggle() {
+            toggle(event) {
+                if (event && event.target && event.target.tagName.toString().toLowerCase() === 'input') {
+                    return;
+                }
+
                 if (!this.disabled && !this.loading) {
                     this.isActive = !this.isActive;
                 }
@@ -426,16 +430,15 @@
                 }
             },
             doSearch(needles, caseSensitive = false) {
-                let found = 0;
+                this.searchFoundItems = 0;
 
                 if (!caseSensitive) {
                     needles = needles.map(string => string.toString().toLowerCase());
                 }
 
-                /** @param {VNode} node */
-                for (let node of (this.$slots.default || [])) {
-                    let contains = false;
-                    let haystack = node.componentInstance.getText().toString();
+                for (let slot of this.$slots.default) {
+                    let visible  = false;
+                    let haystack = slot.componentInstance.getText();
 
                     if (!caseSensitive) {
                         haystack = haystack.toLowerCase();
@@ -443,22 +446,21 @@
 
                     for (let needle of needles) {
                         if (haystack.includes(needle)) {
-                            found++;
-                            contains = true;
+                            visible = true;
+                            this.searchFoundItems++;
                             break;
                         }
                     }
 
-                    node.componentInstance.visible = contains;
+                    slot.componentInstance.visible = visible;
                 }
-
-                return found;
             },
             search(text) {
-                this.searchFoundItems = this.doSearch(
-                    this.searchFuzzy ? text.split(/\W+/) : [text],
+                this.doSearch(
+                    this.searchFuzzy ? text.trim().split(/\W+/) : [text],
                     this.searchCaseSensitive
                 );
+
                 this.searchAllItems = this.$slots.default.length;
 
                 this.searchValue = text;

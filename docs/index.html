@@ -10851,9 +10851,7 @@ exports.default = {
         }
     }),
     data: function data() {
-        return {
-            visible: true
-        };
+        return { visible: true };
     },
 
     mounted: function mounted() {
@@ -10862,6 +10860,10 @@ exports.default = {
         if (this.default) {
             this.$nextTick(function () {
                 _this.select();
+
+                _this.$on('-toggle-visibility', function (state) {
+                    return console.log(state);
+                });
             });
         }
     },
@@ -12427,7 +12429,11 @@ exports.default = {
         });
     },
     methods: {
-        toggle: function toggle() {
+        toggle: function toggle(event) {
+            if (event && event.target && event.target.tagName.toString().toLowerCase() === 'input') {
+                return;
+            }
+
             if (!this.disabled && !this.loading) {
                 this.isActive = !this.isActive;
             }
@@ -12485,7 +12491,7 @@ exports.default = {
         doSearch: function doSearch(needles) {
             var caseSensitive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-            var found = 0;
+            this.searchFoundItems = 0;
 
             if (!caseSensitive) {
                 needles = needles.map(function (string) {
@@ -12493,17 +12499,17 @@ exports.default = {
                 });
             }
 
-            /** @param {VNode} node */
             var _iteratorNormalCompletion2 = true;
             var _didIteratorError2 = false;
             var _iteratorError2 = undefined;
 
             try {
-                for (var _iterator2 = (0, _getIterator3.default)(this.$slots.default || []), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var node = _step2.value;
+                for (var _iterator2 = (0, _getIterator3.default)(this.$slots.default), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var slot = _step2.value;
 
-                    var contains = false;
-                    var haystack = node.componentInstance.getText().toString();
+                    console.log(slot);
+                    var visible = false;
+                    var haystack = slot.componentInstance.getText();
 
                     if (!caseSensitive) {
                         haystack = haystack.toLowerCase();
@@ -12518,8 +12524,8 @@ exports.default = {
                             var needle = _step3.value;
 
                             if (haystack.includes(needle)) {
-                                found++;
-                                contains = true;
+                                visible = true;
+                                this.searchFoundItems++;
                                 break;
                             }
                         }
@@ -12538,7 +12544,7 @@ exports.default = {
                         }
                     }
 
-                    node.componentInstance.visible = contains;
+                    slot.componentInstance.$emit('-toggle-visibility', visible);
                 }
             } catch (err) {
                 _didIteratorError2 = true;
@@ -12554,11 +12560,10 @@ exports.default = {
                     }
                 }
             }
-
-            return found;
         },
         search: function search(text) {
-            this.searchFoundItems = this.doSearch(this.searchFuzzy ? text.split(/\W+/) : [text], this.searchCaseSensitive);
+            this.doSearch(this.searchFuzzy ? text.trim().split(/\W+/) : [text], this.searchCaseSensitive);
+
             this.searchAllItems = this.$slots.default.length;
 
             this.searchValue = text;
@@ -12652,7 +12657,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     style: ({
       'max-height': _vm.sizeToHeight + 'px'
     })
-  }, [_vm._t("default")], 2), (_vm.searchEnabled) ? [_c('ui-button', {
+  }, [_vm._t("default")], 2), (_vm.searchEnabled && _vm.searchHiddenItems > 0) ? [_c('ui-button', {
     staticClass: "search-results",
     attrs: {
       "view": "flat"
