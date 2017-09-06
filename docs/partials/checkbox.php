@@ -61,7 +61,7 @@
 
 <h3>Примеры</h3>
 
-<table>
+<table class="examples">
     <thead>
         <tr>
             <td>Тип</td>
@@ -98,7 +98,7 @@
                 <code>&lt;ui-checkbox :disabled="true"&gt;</code>
             </td>
             <td>
-                <ui-checkbox :disabled="true">
+                <ui-checkbox :checked="true" :disabled="true">
                     По-настоящему CSS расшифровывается
                     как «Ceaseless Screaming of the Sinner»
                 </ui-checkbox>

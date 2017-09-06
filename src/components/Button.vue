@@ -33,9 +33,10 @@
                 size: $font-size - 1px;
                 family: $font-family;
             }
-            transition: color .3s $ui-animation-swift,
-            box-shadow .3s $ui-animation-swift,
-            background .3s $ui-animation-swift;
+            transition:
+                color .3s $ui-animation-swift,
+                box-shadow .3s $ui-animation-swift,
+                background .3s $ui-animation-swift;
             will-change: color, box-shadow, background;
 
             &[href="#"] {
@@ -56,9 +57,9 @@
             &[disabled],
             &:disabled {
                 cursor: default;
-                box-shadow: 0 0 0 1px $color-disabled;
-                color: $color-disabled-text;
-                background: $color-disabled;
+                box-shadow: 0 0 0 1px $color-disabled-filled-border;
+                background: $color-disabled-filled-bg;
+                color: $color-disabled-filled-body;
             }
 
         }
@@ -70,7 +71,7 @@
             }
         }
 
-        &[data-type="simple"] {
+        &[data-view="simple"] {
             a, button {
                 border-radius: 3px;
                 box-shadow: 0 0 0 1px $color-border;
@@ -90,9 +91,36 @@
                 &[disabled],
                 &:disabled {
                     cursor: default;
+                    box-shadow: 0 0 0 1px $color-disabled-border;
+                    background: $color-disabled-bg;
+                    color: $color-disabled-body;
+                }
+            }
+        }
+
+        &[data-view="flat"] {
+            a, button {
+                border-radius: 3px;
+                box-shadow: 0 0 0 1px rgba($color-bg, 0);
+                color: $color-text;
+                background: $color-white;
+
+                &:hover {
+                    box-shadow: 0 0 0 1px $color-bg;
+                    background: $color-bg;
+                }
+
+                &:active {
+                    transition: none !important;
                     box-shadow: 0 0 0 1px $color-border-hover;
-                    color: $color-white;
-                    background: $color-border;
+                }
+
+                &[disabled],
+                &:disabled {
+                    cursor: default;
+                    box-shadow: 0 0 0 1px rgba($color-disabled-bg, 0);
+                    background: rgba($color-disabled-bg, 0);
+                    color: $color-disabled-body;
                 }
             }
         }
@@ -100,7 +128,7 @@
 </style>
 
 <template>
-    <div class="button" :data-type="type">
+    <div class="button" :data-view="view">
         <ui-loading v-if="loading"></ui-loading>
 
         <ui-tooltip v-if="title">{{ title }}</ui-tooltip>
@@ -134,9 +162,10 @@
             /**
              * Button type
              */
-            type: Enum([
+            view: Enum([
                 'primary',
-                'simple'
+                'simple',
+                'flat'
             ], 'primary'),
 
             /**
@@ -156,8 +185,6 @@
                 type: String,
                 default: null
             },
-
-
         },
         methods: {
             onClick(event) {

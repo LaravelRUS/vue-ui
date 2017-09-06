@@ -14,7 +14,12 @@
             flex-wrap: nowrap;
             background: $color-white;
             position: relative;
-            will-change: background, box-shadow;
+            transition:
+                color .3s $ui-animation-swift,
+                box-shadow .3s $ui-animation-swift,
+                background .3s $ui-animation-swift;
+            will-change: color, box-shadow, background;
+
             box-shadow: 0 0 0 1px $color-border;
             border-radius: 2px;
             z-index: 1;
@@ -48,11 +53,17 @@
             transition: color .2s $ui-animation-swift;
             position: relative;
             z-index: 2;
+            height: $ui-height;
+            line-height: $ui-height;
+            font: {
+                size: $font-size;
+                family: $font-family;
+            }
         }
 
         .placeholder {
-            top: 1px;
-            left: $ui-padding + 1px;
+            top: 0;
+            left: $ui-padding;
             width: 100%;
             font-size: $font-size;
             height: inherit;
@@ -73,6 +84,7 @@
             height: inherit;
             padding: 0 0 0 10px;
             display: flex;
+            border-radius: 0 3px 3px 0;
             justify-content: flex-end;
             flex-wrap: nowrap;
             align-items: center;
@@ -87,14 +99,14 @@
 
         &.disabled {
             .container {
-                background: $color-light-disabled !important;
-                box-shadow: 0 0 0 1px $color-light-disabled-text !important;
+                background: $color-disabled-bg !important;
+                box-shadow: 0 0 0 1px $color-disabled-border !important;
                 transition: background .3s $ui-animation-swift, box-shadow .1s $ui-animation-swift;
             }
 
             input,
             .placeholder {
-                color: $color-light-disabled-text !important;
+                color: $color-disabled-body !important;
                 transition: color .3s $ui-animation-swift;
             }
         }
@@ -102,7 +114,7 @@
         &.active {
             .placeholder {
                 color: $color-text;
-                transform: translate(-$ui-padding, -$ui-height + 6px) scale(.82);
+                transform: translate(-$ui-padding, -$ui-height + 6px) scale(.85);
                 transition: transform .3s cubic-bezier(0.245, 1.600, 0.560, 0.925),
                 color .3s $ui-animation-swift;
             }
@@ -116,11 +128,50 @@
                 box-shadow: 0 0 0 1px $color-main;
             }
         }
+
+        &[data-view="flat"] {
+            .container {
+                box-shadow: 0 0 0 1px rgba($color-bg, 0);
+                color: $color-text;
+                background: $color-white;
+
+                & /deep/ .loader {
+                    box-shadow: 0 0 0 1px rgba($color-border, .3);
+                    background: rgba($color-border, .3);
+                }
+
+                &:hover {
+                    box-shadow: 0 0 0 1px $color-bg;
+                    background: $color-bg;
+                }
+            }
+
+            &.focus {
+                .container {
+                    transition: none !important;
+                    box-shadow: 0 0 0 1px $color-border-hover;
+                    background: $color-bg;
+                }
+            }
+
+            &[disabled],
+            &.disabled {
+                .container {
+                    cursor: default;
+                    box-shadow: 0 0 0 1px rgba($color-disabled-bg, 0) !important;
+                    background: rgba($color-disabled-bg, 0) !important;
+                }
+                input,
+                .placeholder {
+                    color: $color-disabled-body;
+                }
+            }
+        }
     }
 </style>
 
 <template>
-    <section class="input" :class="{
+    <section class="input" :data-view="view" :class="{
         active: isActive,
         focus: isFocus,
         disabled: disabled
@@ -163,11 +214,24 @@
             type: Enum(['tel', 'url', 'text', 'email', 'search', 'password'], 'text'),
 
             /**
+             * Input style
+             */
+            view: Enum(['primary', 'flat'], 'primary'),
+
+            /**
              * Text placeholder
              */
             placeholder: {
                 type: String,
                 default: ''
+            },
+
+            /**
+             * Is initial state is focused
+             */
+            focus: {
+                type: Boolean,
+                default: false
             },
 
             /**
@@ -198,15 +262,27 @@
                 /**
                  * Real input value (Memory separation with "props: value")
                  */
-                internalValue:    this.value
+                internalValue:    this.value,
+
+                /**
+                 * Input DOM element
+                 */
+                inputNode:        null
             };
         },
         mounted() {
             if (this.value) {
-                // Notify for default value
-                this.$emit('input', this.internalValue);
                 this.isActive = true;
             }
+
+            this.$nextTick(() => {
+                this.inputNode = this.$el.querySelector('input');
+
+                if (this.focus) {
+                    this.inputNode.focus();
+                }
+            });
+
         },
         methods: {
             onFocus(event) {

@@ -28,6 +28,18 @@
             width: 960px;
             margin: 50px auto;
         }
+        .examples .button {
+            min-width: 100px;
+        }
+        .examples .input,
+        .examples .select,
+        .examples .password {
+            min-width: 250px;
+        }
+
+        .examples tbody td:last-child {
+            width: 250px;
+        }
     </style>
 </head>
 <body>

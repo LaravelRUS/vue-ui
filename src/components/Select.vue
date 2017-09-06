@@ -16,6 +16,13 @@
             user-select: none;
 
             .value {
+                font: {
+                    size: $font-size;
+                    family: $font-family;
+                }
+                height: $ui-height;
+                line-height: $ui-height;
+
                 &.default {
                     color: $color-extra-light-silver !important;
                 }
@@ -36,6 +43,7 @@
                 cursor: pointer;
                 transform: rotateZ(0deg);
                 transform-origin: 50%;
+                z-index: 6;
                 transition: transform .3s $ui-animation-swift;
 
                 svg {
@@ -71,7 +79,6 @@
             position: absolute;
             width: 100%;
             border-radius: 0 0 2px 2px;
-            padding: 3px 0;
             z-index: 98;
             box-shadow:
                 0 -1px 0 0 $color-white,
@@ -79,24 +86,37 @@
                 $ui-box-shadow;
             pointer-events: none;
             opacity: 0;
-            overflow-x: visible;
-            overflow-y: auto;
             transform: translateY(-10px);
             transition:
                 opacity .2s $ui-animation-swift,
                 transform .2s $ui-animation-swift;
 
-            &::-webkit-scrollbar {
-                width: 3px;
+            .options {
+                padding: 3px 0;
+                overflow-x: visible;
+                overflow-y: auto;
 
-                &-thumb {
-                    border-radius: 1px;
-                    background: $color-border;
+                &::-webkit-scrollbar {
+                    width: 3px;
 
-                    &:hover {
-                        background: $color-main;
+                    &-thumb {
+                        border-radius: 1px;
+                        background: $color-border;
+
+                        &:hover {
+                            background: $color-main;
+                        }
                     }
                 }
+            }
+
+            .not-found {
+                background: $color-white;
+                padding: $ui-padding;
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: $color-description;
             }
         }
 
@@ -136,15 +156,60 @@
 
         &.disabled {
             .current {
-                box-shadow: 0 0 0 1px $color-disabled;
-                background: $color-extra-light-gray;
+                box-shadow: 0 0 0 1px $color-disabled-border;
+                background: $color-disabled-bg;
                 cursor: default !important;
+
                 .value,
                 .value.default {
-                    color: $color-disabled !important;
+                    color: $color-disabled-body !important;
                 }
+                .arrow {
+                    cursor: default;
+                    svg {
+                        fill: $color-disabled-body !important;
+                    }
+                }
+            }
+        }
+
+        &.searchable.active {
+            .current {
+                padding: 0;
+                background: $color-bg !important;
+                & /deep/ {
+                    .input {
+                        display: block;
+                    }
+                    .container {
+                        border-radius: 4px 4px 0 0 !important;
+                        background: $color-white !important;
+                        box-shadow: none !important;
+                    }
+                    input {
+                        padding-right: 0 !important;
+                    }
+                }
+
                 .arrow svg {
-                    fill: $color-disabled;
+                    fill: $color-text !important;
+                }
+            }
+
+            .dropdown {
+                & /deep/ {
+                    .button {
+                        display: block;
+                        a, button {
+                            border-radius: 0 0 4px 4px;
+                            text-transform: none;
+                            font-weight: 400;
+                            box-shadow: inset 0 1px 0 $color-border;
+                            letter-spacing: 0;
+                            line-height: $ui-height;
+                            height: $ui-height;
+                        }
+                    }
                 }
             }
         }
@@ -152,15 +217,25 @@
 </style>
 
 <template>
-    <section class="select" :class="{active: isActive, disabled: disabled}">
+    <section class="select" :class="{
+        active: isActive,
+        disabled: disabled,
+        searchable: searchable
+    }">
         <input type="hidden" :name="name" :value="value" v-if="value" />
         <ui-loading v-if="loading"></ui-loading>
 
         <section class="current" @mouseover="hover(true)" @mouseleave="hover(false)" @click="toggle">
             <ui-tooltip direction="top" v-if="title">{{ title }}</ui-tooltip>
 
-            <span v-if="text" class="value">{{ text }}</span>
-            <span v-else="text" class="value default">{{ placeholder }}</span>
+            <template v-if="!searchable || (searchable && !isActive)">
+                <span class="value" :class="{default: !text}">{{ text || placeholder }}</span>
+            </template>
+            <template v-else="!searchable || (searchable && !isActive)">
+                <ui-text v-model="searchValue" view="flat" @input="search"
+                         :placeholder="text || placeholder" :focus="true"
+                         :value="searchValue"></ui-text>
+            </template>
 
             <button class="arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 284.929 284.929">
@@ -173,14 +248,25 @@
             </button>
         </section>
 
-        <section class="dropdown" :style="{'max-height': (size * 30 + 6) + 'px'}">
-            <slot></slot>
+        <section class="dropdown">
+            <div v-if="searchFoundItems === 0" class="not-found">
+                {{ searchDescriptionNotFound }}
+            </div>
+            <div class="options" :style="{'max-height': sizeToHeight + 'px'}">
+                <slot></slot>
+            </div>
+            <template v-if="searchEnabled">
+                <ui-button view="flat" @click="resetSearch" class="search-results">
+                    {{ searchFormattedDescriptionReset }}
+                </ui-button>
+            </template>
         </section>
     </section>
 </template>
 
 <script>
     import Props from "kernel/Props";
+    import Enum from "kernel/Enum";
 
     export default {
         props: {
@@ -192,6 +278,49 @@
             active: {
                 type: Boolean,
                 default: false,
+            },
+
+            // TODO
+            view: Enum(['primary'], 'primary'),
+
+            /**
+             * Is the component allows searching
+             */
+            searchable: {
+                type: Boolean,
+                default: false,
+            },
+
+            /**
+             * Is the case sensitive seacrh
+             */
+            searchCaseSensitive: {
+                type: Boolean,
+                default: false
+            },
+
+            /**
+             * Enables fuzzy search
+             */
+            searchFuzzy: {
+                type: Boolean,
+                default: true
+            },
+
+            /**
+             * Description button
+             */
+            searchDescriptionReset: {
+                type: String,
+                default: 'Show {hidden} files'
+            },
+
+            /**
+             * Description button
+             */
+            searchDescriptionNotFound: {
+                type: String,
+                default: 'No items found'
             },
 
             /**
@@ -219,14 +348,31 @@
                 }
 
                 this.$emit('toggle', this.isActive);
+            },
+            searchFormattedDescriptionReset() {
+                return this.searchDescriptionReset
+                    .replace('{found}', this.searchFoundItems)
+                    .replace('{all}', this.searchAllItems)
+                    .replace('{hidden}', this.searchHiddenItems);
+            },
+            searchHiddenItems() {
+                return this.searchAllItems - this.searchFoundItems;
+            },
+            sizeToHeight() {
+                return this.size * 29 + 3;
             }
         },
         data() {
             return {
-                text: '',
-                value: null,
-                over: false,
-                isActive: this.active,
+                text:           '',
+                value:          null,
+                over:           false,
+                isActive:       this.active,
+
+                searchEnabled:       false,
+                searchValue:         this.text,
+                searchFoundItems:    0,
+                searchAllItems:      0,
             };
         },
         mounted: function () {
@@ -236,6 +382,8 @@
                         this.hide();
                     }
                 }, false);
+
+                this.resetSearch();
             });
 
             this.$on('-option-select', value => {
@@ -255,13 +403,72 @@
             },
             hide() {
                 this.isActive = false;
+                this.searchEnabled = false;
             },
             hover(status) {
                 this.over = status;
             },
+            resetSearch(event) {
+                this.searchEnabled = false;
+                this.searchValue   = this.text;
+
+                this.searchFoundItems = this.searchAllItems = this.$slots.default.length;
+
+                /** @param {VNode} node */
+                for (let node of (this.$slots.default || [])) {
+                    node.componentInstance.visible = true;
+                }
+
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.isActive = true;
+                }
+            },
+            doSearch(needles, caseSensitive = false) {
+                let found = 0;
+
+                if (!caseSensitive) {
+                    needles = needles.map(string => string.toString().toLowerCase());
+                }
+
+                /** @param {VNode} node */
+                for (let node of (this.$slots.default || [])) {
+                    let contains = false;
+                    let haystack = node.componentInstance.getText().toString();
+
+                    if (!caseSensitive) {
+                        haystack = haystack.toLowerCase();
+                    }
+
+                    for (let needle of needles) {
+                        if (haystack.includes(needle)) {
+                            found++;
+                            contains = true;
+                            break;
+                        }
+                    }
+
+                    node.componentInstance.visible = contains;
+                }
+
+                return found;
+            },
+            search(text) {
+                this.searchFoundItems = this.doSearch(
+                    this.searchFuzzy ? text.split(/\W+/) : [text],
+                    this.searchCaseSensitive
+                );
+                this.searchAllItems = this.$slots.default.length;
+
+                this.searchValue = text;
+                this.searchEnabled = true;
+            },
             select(value) {
                 this.value = value.value || null;
                 this.text = value.text || '';
+
+                this.searchValue = value.text || value.value || '';
 
                 this.$emit('select', this.value);
             }

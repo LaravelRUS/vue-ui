@@ -42,7 +42,7 @@
 
 <h3>Примеры</h3>
 
-<table>
+<table class="examples">
     <thead>
         <tr>
             <td>Тип</td>

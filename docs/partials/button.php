@@ -40,16 +40,17 @@
             <td>Имя компонента</td>
         </tr>
         <tr>
-            <td><code>type</code></td>
+            <td><code>view</code></td>
             <td>
                 Одно из:
                 <ul>
                     <li><code>"primary"</code></li>
                     <li><code>"simple"</code></li>
+                    <li><code>"flat"</code></li>
                 </ul>
             </td>
             <td><code>"primary"</code></td>
-            <td>Тип стиля кнопки</td>
+            <td>Стиль кнопки</td>
         </tr>
         <tr>
             <td><code>href</code></td>
@@ -93,7 +94,7 @@
 
 <h3>Примеры</h3>
 
-<table>
+<table class="examples">
     <thead>
         <tr>
             <td>Тип</td>
@@ -101,14 +102,6 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>
-                <code>&lt;ui-button&gt;</code>
-            </td>
-            <td>
-                <ui-button>Primary</ui-button>
-            </td>
-        </tr>
         <tr>
             <td>
                 <code>&lt;ui-button title="Hover me"&gt;</code>
@@ -135,26 +128,50 @@
         </tr>
         <tr>
             <td>
-                <code>&lt;ui-button type="simple"&gt;</code>
+                <code>&lt;ui-button title="Hover me" view="simple"&gt;</code>
             </td>
             <td>
-                <ui-button type="simple">Simple</ui-button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <code>&lt;ui-button type="simple" :disabled="true"&gt;</code>
-            </td>
-            <td>
-                <ui-button type="simple" :disabled="true">Simple</ui-button>
+                <ui-button title="Hover me" view="simple">Simple</ui-button>
             </td>
         </tr>
         <tr>
             <td>
-                <code>&lt;ui-button type="simple" :loading="true"&gt;</code>
+                <code>&lt;ui-button view="simple" :disabled="true"&gt;</code>
             </td>
             <td>
-                <ui-button type="simple" :loading="true">Loading&hellip;</ui-button>
+                <ui-button view="simple" :disabled="true">Simple</ui-button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>&lt;ui-button view="simple" :loading="true"&gt;</code>
+            </td>
+            <td>
+                <ui-button view="simple" :loading="true">Loading&hellip;</ui-button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>&lt;ui-button title="Hover me" view="flat"&gt;</code>
+            </td>
+            <td>
+                <ui-button title="Hover me" view="flat">Flat</ui-button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>&lt;ui-button view="flat" :disabled="true"&gt;</code>
+            </td>
+            <td>
+                <ui-button view="flat" :disabled="true">Flat</ui-button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>&lt;ui-button view="flat" :loading="true"&gt;</code>
+            </td>
+            <td>
+                <ui-button view="flat" :loading="true">Loading&hellip;</ui-button>
             </td>
         </tr>
     </tbody>

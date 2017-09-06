@@ -33,7 +33,7 @@
 </style>
 
 <template>
-    <article class="option" @click="click" :class="{disabled: disabled}">
+    <article class="option" @click="click" :class="{disabled: disabled}" v-if="visible">
         <ui-loading v-if="loading"></ui-loading>
         <ui-tooltip v-if="title">{{ title }}</ui-tooltip>
 
@@ -53,14 +53,15 @@
              * Value
              */
             value: {
-                default: null,
+                default:  null,
                 required: true,
             },
+
             /**
              * Default value
              */
             default: {
-                type: Boolean,
+                type:    Boolean,
                 default: false,
             },
 
@@ -68,9 +69,14 @@
              * Element title fallback
              */
             text: {
-                type: String,
+                type:    String,
                 default: ''
-            }
+            },
+        },
+        data() {
+            return {
+                visible: true
+            };
         },
         mounted: function () {
             if (this.default) {

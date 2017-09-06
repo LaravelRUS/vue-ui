@@ -162,7 +162,7 @@
 
 <h3>Примеры</h3>
 
-<table>
+<table class="examples">
     <thead>
         <tr>
             <td>Тип</td>
@@ -228,7 +228,29 @@
             </td>
             <td>
                 <ui-select :loading="true">
-                    <ui-option value="1">This is an example</ui-option>
+                    <ui-option :default="true" value="1">Selected value</ui-option>
+                </ui-select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <pre><code><?=htmlspecialchars('<ui-select :searchable="true">
+    <ui-option value="1">First value</ui-option>
+    <ui-option value="2">Second value</ui-option>
+    <ui-option value="3">Third value</ui-option>
+    <ui-option value="4">Fourth value</ui-option>
+    <ui-option value="5">Fifth value</ui-option>
+    <ui-option value="6">Sixth value</ui-option>
+</ui-select>')?></code></pre>
+            </td>
+            <td>
+                <ui-select :searchable="true">
+                    <ui-option value="1">First value</ui-option>
+                    <ui-option value="2">Second value</ui-option>
+                    <ui-option value="3">Third value</ui-option>
+                    <ui-option value="4">Fourth value</ui-option>
+                    <ui-option value="5">Fifth value</ui-option>
+                    <ui-option value="6">Sixth value</ui-option>
                 </ui-select>
             </td>
         </tr>

@@ -40,6 +40,12 @@
             <td>Описание поля</td>
         </tr>
         <tr>
+            <td><code>focus</code></td>
+            <td><code>Boolean</code></td>
+            <td><code>false</code></td>
+            <td>Выбрать поле редактируемым</td>
+        </tr>
+        <tr>
             <td><code>name</code></td>
             <td><code>String</code></td>
             <td><code>""</code></td>
@@ -65,6 +71,18 @@
             </td>
             <td><code>"text"</code></td>
             <td>Тип текстового поля</td>
+        </tr>
+        <tr>
+            <td><code>view</code></td>
+            <td>
+                Одно из:
+                <ul>
+                    <li><code>"primary"</code></li>
+                    <li><code>"flat"</code></li>
+                </ul>
+            </td>
+            <td><code>"primary"</code></td>
+            <td>Стиль текстового поля</td>
         </tr>
     </tbody>
 </table>
@@ -96,7 +114,7 @@
 
 <h3>Примеры</h3>
 
-<table>
+<table class="examples">
     <thead>
         <tr>
             <td>Тип</td>
@@ -131,10 +149,34 @@
         </tr>
         <tr>
             <td>
-                <code>&lt;ui-text :loading="true"&gt;</code>
+                <code>&lt;ui-text :loading="true" value="Loading..."&gt;</code>
             </td>
             <td>
                 <ui-text :loading="true" value="Loading..."></ui-text>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>&lt;ui-text view="flat" value="Example"&gt;</code>
+            </td>
+            <td>
+                <ui-text view="flat" value="Example"></ui-text>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>&lt;ui-text view="flat" :disabled="true" value="Disabled"&gt;</code>
+            </td>
+            <td>
+                <ui-text :disabled="true" view="flat" value="Disabled"></ui-text>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>&lt;ui-text view="flat" :loading="true" value="Loading..."&gt;</code>
+            </td>
+            <td>
+                <ui-text :loading="true" view="flat" value="Loading..."></ui-text>
             </td>
         </tr>
     </tbody>
