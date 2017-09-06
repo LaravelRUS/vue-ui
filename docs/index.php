@@ -34,8 +34,32 @@
     <main id="app">
         <h1>LaravelRUS UI</h1>
 
+        <ul>
+            <li>
+                <h4>HTML компоненты</h4>
+                <ul>
+                    <li><a href="#headings">Headings</a></li>
+                </ul>
+            </li>
+            <li>
+                <h4>Кастомные компоненты</h4>
+                <ul>
+                    <li><a href="#button">Button</a></li>
+                    <li><a href="#input">Text</a></li>
+                    <li><a href="#password">Password</a></li>
+                    <li><a href="#select">Select + Option</a></li>
+                    <li><a href="#tooltip">Tooltip</a></li>
+                    <li><a href="#checkbox">Checkbox</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2 class="underline">HTML Elements</h2>
+
         <!-- HEADINGS -->
         <?php require __DIR__ . '/partials/headings.php'; ?>
+
+        <h2 class="underline">Custom Elements</h2>
 
         <!-- BUTTON -->
         <?php require __DIR__ . '/partials/button.php'; ?>
