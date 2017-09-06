@@ -41,7 +41,7 @@
             &:after {
                 transition: opacity .1s $ui-animation-swift, box-shadow .3s ease;
                 opacity: 1;
-                box-shadow: 0 0 1px 18px rgba($color-main, 0);
+                box-shadow: 0 0 1px 15px rgba($color-main, 0);
             }
         }
 
@@ -54,7 +54,7 @@
                 &:before {
                     transition: opacity .1s $ui-animation-swift, box-shadow .3s ease;
                     opacity: 1;
-                    box-shadow: 0 0 1px 18px rgba($color-main, 0);
+                    box-shadow: 0 0 1px 15px rgba($color-main, 0);
                 }
 
                 &:after {
