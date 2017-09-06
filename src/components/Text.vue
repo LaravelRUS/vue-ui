@@ -204,7 +204,7 @@
         mounted() {
             if (this.value) {
                 // Notify for default value
-                this.$emit('input', this.value);
+                this.$emit('input', this.internalValue);
                 this.isActive = true;
             }
         },
@@ -226,7 +226,7 @@
                 this.wasChanged = true;
             },
             onInput(event) {
-                this.$emit('input', event);
+                this.$emit('input', this.internalValue);
 
                 this.isActive = this.internalValue.trim().length !== 0;
             }

@@ -70,7 +70,7 @@
 <template>
     <section class="password" :class="{ 'password-visible': isVisible }">
         <ui-text v-model="internalValue"
-                 :value="value"
+                 :value="internalValue"
                  :disabled="disabled"
                  :loading="loading"
                  :title="title"
@@ -160,8 +160,9 @@
                     ? this.tipShow
                     : this.tipHide;
             },
-            onInput(event) {
-                this.$emit('input', event);
+            onInput(value) {
+                this.internalValue = value;
+                this.$emit('input', value);
             }
         },
     }

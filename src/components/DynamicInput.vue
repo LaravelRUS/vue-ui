@@ -4,6 +4,10 @@
             tag: {
                 type: String,
                 required: true
+            },
+            value: {
+                type: String,
+                default: ''
             }
         },
         render: function(createElement) {
@@ -11,7 +15,7 @@
             return createElement('input',
                 {
                     domProps: {
-                        type: this.tag,
+                        type: component.tag,
                         value: component.value
                     },
                     on: {
