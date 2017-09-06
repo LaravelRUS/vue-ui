@@ -69,7 +69,8 @@
 
 <template>
     <section class="password" :class="{ 'password-visible': isVisible }">
-        <ui-text v-model="realValue"
+        <ui-text v-model="internalValue"
+                 :value="value"
                  :disabled="disabled"
                  :loading="loading"
                  :title="title"
@@ -116,11 +117,16 @@
 
     export default {
         model: {
-            prop: 'realValue',
+            prop: 'internalValue',
             event: 'input'
         },
         props: {
             ...Text.props,
+            type: {
+                type: String,
+                default: 'password',
+                validator: (value) => value === 'password'
+            },
             tipShow: {
                 type: String,
                 default: 'Show password'
@@ -139,8 +145,8 @@
                 isVisible: false,
                 isVisibleDescription: this.tipHide,
                 dynamicType: 'password',
-                realValue: this.value
-            }
+                internalValue: this.value
+            };
         },
         methods: {
             togglePasswordVisibility() {

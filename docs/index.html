@@ -10875,6 +10875,13 @@ exports.default = {
         event: 'input'
     },
     props: (0, _extends3.default)({}, _Text2.default.props, {
+        type: {
+            type: String,
+            default: 'password',
+            validator: function validator(value) {
+                return value === 'password';
+            }
+        },
         tipShow: {
             type: String,
             default: 'Show password'
@@ -10912,6 +10919,7 @@ exports.default = {
         }
     }
 }; //
+//
 //
 //
 //
@@ -11342,6 +11350,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     }
   }, [_c('ui-text', {
     attrs: {
+      "value": _vm.value,
       "disabled": _vm.disabled,
       "loading": _vm.loading,
       "title": _vm.title,

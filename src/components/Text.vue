@@ -134,7 +134,7 @@
 
             <ui-loading v-if="loading"></ui-loading>
 
-            <v-input v-model="realValue" :value="value" @input="onInput" @blur="onBlur" @focus="onFocus"
+            <v-input v-model="internalValue" :value="value" @input="onInput" @blur="onBlur" @focus="onFocus"
                 :name="name"
                 :tag="type"
                 :disabled="disabled"></v-input>
@@ -152,7 +152,7 @@
 
     export default {
         model: {
-            prop: 'realValue',
+            prop: 'internalValue',
             event: 'input'
         },
         props: {
@@ -198,7 +198,7 @@
                 /**
                  * Real input value (Memory separation with "props: value")
                  */
-                realValue:    this.value
+                internalValue:    this.value
             };
         },
         mounted() {
@@ -217,18 +217,18 @@
             onBlur(event) {
                 this.$emit('blur', event);
 
-                if (this.realValue.trim().length !== this.realValue.length) {
-                    this.realValue = this.realValue.trim();
+                if (this.internalValue.trim().length !== this.internalValue.length) {
+                    this.internalValue = this.internalValue.trim();
                 }
 
                 this.isFocus = false;
-                this.isActive = this.realValue.length !== 0;
+                this.isActive = this.internalValue.length !== 0;
                 this.wasChanged = true;
             },
             onInput(event) {
                 this.$emit('input', event);
 
-                this.isActive = this.realValue.trim().length !== 0;
+                this.isActive = this.internalValue.trim().length !== 0;
             }
         }
     }
