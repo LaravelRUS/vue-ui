@@ -53,7 +53,8 @@
              * Value
              */
             value: {
-                default: null
+                default: null,
+                required: true,
             },
             /**
              * Default value
