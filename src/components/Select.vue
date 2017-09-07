@@ -81,15 +81,15 @@
             border-radius: 0 0 2px 2px;
             z-index: 98;
             box-shadow:
-                0 -1px 0 0 $color-white,
-                0 0 0 1px $color-border-hover,
-                $ui-box-shadow;
+                    0 -1px 0 0 $color-white,
+                    0 0 0 1px $color-border-hover,
+                    $ui-box-shadow;
             pointer-events: none;
             opacity: 0;
             transform: translateY(-10px);
             transition:
-                opacity .2s $ui-animation-swift,
-                transform .2s $ui-animation-swift;
+                    opacity .2s $ui-animation-swift,
+                    transform .2s $ui-animation-swift;
 
             .options {
                 padding: 3px 0;
@@ -142,8 +142,8 @@
                 opacity: 1;
                 transform: translateY(0);
                 transition:
-                    opacity .3s $ui-animation-swift,
-                    transform .3s $ui-animation-swift;
+                        opacity .3s $ui-animation-swift,
+                        transform .3s $ui-animation-swift;
             }
         }
 
@@ -252,14 +252,10 @@
             <div v-if="searchFoundItems === 0" class="not-found">
                 {{ searchDescriptionNotFound }}
             </div>
+
             <div class="options" :style="{'max-height': sizeToHeight + 'px'}">
                 <slot></slot>
             </div>
-            <template v-if="searchEnabled && searchHiddenItems > 0">
-                <ui-button view="flat" @click="resetSearch" class="search-results">
-                    {{ searchFormattedDescriptionReset }}
-                </ui-button>
-            </template>
         </section>
     </section>
 </template>
@@ -305,14 +301,6 @@
             searchFuzzy: {
                 type: Boolean,
                 default: true
-            },
-
-            /**
-             * Description button
-             */
-            searchDescriptionReset: {
-                type: String,
-                default: 'Show {hidden} files'
             },
 
             /**
@@ -368,7 +356,6 @@
                 value:          null,
                 over:           false,
                 isActive:       this.active,
-
                 searchEnabled:       false,
                 searchValue:         this.text,
                 searchFoundItems:    0,
@@ -413,10 +400,12 @@
                 this.over = status;
             },
             resetSearch(event) {
-                this.searchEnabled = false;
-                this.searchValue   = this.text;
+                this.searchEnabled    = false;
+                this.searchValue      = this.text;
 
-                this.searchFoundItems = this.searchAllItems = this.$slots.default.length;
+                this.searchFoundItems
+                    = this.searchAllItems
+                    = this.$slots.default.length;
 
                 /** @param {VNode} node */
                 for (let node of (this.$slots.default || [])) {

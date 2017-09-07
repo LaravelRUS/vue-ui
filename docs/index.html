@@ -12302,10 +12302,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
-//
 
 exports.default = {
     props: (0, _extends3.default)({}, _Props2.default, {
@@ -12343,14 +12339,6 @@ exports.default = {
         searchFuzzy: {
             type: Boolean,
             default: true
-        },
-
-        /**
-         * Description button
-         */
-        searchDescriptionReset: {
-            type: String,
-            default: 'Show {hidden} files'
         },
 
         /**
@@ -12403,7 +12391,6 @@ exports.default = {
             value: null,
             over: false,
             isActive: this.active,
-
             searchEnabled: false,
             searchValue: this.text,
             searchFoundItems: 0,
@@ -12507,7 +12494,6 @@ exports.default = {
                 for (var _iterator2 = (0, _getIterator3.default)(this.$slots.default), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                     var slot = _step2.value;
 
-                    console.log(slot);
                     var visible = false;
                     var haystack = slot.componentInstance.getText();
 
@@ -12544,7 +12530,7 @@ exports.default = {
                         }
                     }
 
-                    slot.componentInstance.$emit('-toggle-visibility', visible);
+                    slot.componentInstance.visible = visible;
                 }
             } catch (err) {
                 _didIteratorError2 = true;
@@ -12657,15 +12643,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     style: ({
       'max-height': _vm.sizeToHeight + 'px'
     })
-  }, [_vm._t("default")], 2), (_vm.searchEnabled && _vm.searchHiddenItems > 0) ? [_c('ui-button', {
-    staticClass: "search-results",
-    attrs: {
-      "view": "flat"
-    },
-    on: {
-      "click": _vm.resetSearch
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.searchFormattedDescriptionReset) + "\n            ")])] : _vm._e()], 2)], 1)
+  }, [_vm._t("default")], 2)])], 1)
 }
 var staticRenderFns = []
 module.exports = { render: render, staticRenderFns: staticRenderFns }
