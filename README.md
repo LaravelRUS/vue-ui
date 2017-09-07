@@ -1,5 +1,13 @@
 # LaravelRUS UI Kit
 
-Based on Vue 2.0+
+## Requirements
 
-Example here: https://serafimarts.github.io/LaravelRUS-UI/
+- Vue.js 2.0 or greater
+
+## Installation
+
+> TODO
+
+## Introduction
+
+Example here: https://laravelrus.github.io/vue-ui/
