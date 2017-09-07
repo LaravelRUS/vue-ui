@@ -1,15 +1,15 @@
-<?php ob_start(); ?>
-<!DOCTYPE html>
+<?php ob_start(); ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <title>LaravelRUS UI &mdash; Компоненты</title>
-    <link rel="icon" href="favicon.png"/>
+    <link rel="icon" href="./favicon.png"/>
 
     <!-- Load Vendor Libraries -->
     <link rel="stylesheet" href="https://unpkg.com/normalize.css@7.0.0/normalize.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,400i,700,700i&subset=cyrillic"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700,700i" />
+    <script src="https://unpkg.com/babel-polyfill@6.26.0/dist/polyfill.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
 
     <!-- Load an Application files -->
@@ -96,13 +96,13 @@
         new Vue({ el: '#app' })
     </script>
 </body>
-</html>
-<?php
+</html><?php
 $content = ob_get_contents();
-// Minimise
-$content = preg_replace('/>\s+</iu', '><', $content);
-ob_end_clean();
-echo $content;
 
+// Minimise
+// $content = preg_replace('/>\s+</iu', '><', $content);
+
+ob_end_clean();
 file_put_contents(__DIR__ . '/index.html', $content);
+echo $content;
 ?>
