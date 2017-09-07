@@ -249,11 +249,14 @@
         </section>
 
         <section class="dropdown">
-            <div v-if="searchFoundItems === 0" class="not-found">
+            <div v-if="foundOptionsCount === 0" class="not-found">
                 {{ searchDescriptionNotFound }}
             </div>
 
             <div class="options" :style="{'max-height': sizeToHeight + 'px'}">
+                <template v-for="(text, value) in options">
+                    <ui-option :value="value">{{ text }}</ui-option>
+                </template>
                 <slot></slot>
             </div>
         </section>
@@ -325,6 +328,15 @@
             placeholder: {
                 type: String,
                 default: 'Select a value...'
+            },
+
+            /**
+             *  Options
+             */
+            options: {
+                default: () => {
+                    return [];
+                },
             }
         },
         computed: {
@@ -337,14 +349,11 @@
 
                 this.$emit('toggle', this.isActive);
             },
-            searchFormattedDescriptionReset() {
-                return this.searchDescriptionReset
-                    .replace('{found}', this.searchFoundItems)
-                    .replace('{all}', this.searchAllItems)
-                    .replace('{hidden}', this.searchHiddenItems);
+            hiddenOptionsCount() {
+                return this.allOptionsCount - this.foundOptionsCount;
             },
-            searchHiddenItems() {
-                return this.searchAllItems - this.searchFoundItems;
+            allOptionsCount() {
+                return this.allOptions().length;
             },
             sizeToHeight() {
                 return this.size * 29 + 3;
@@ -352,14 +361,17 @@
         },
         data() {
             return {
-                text:           '',
-                value:          null,
-                over:           false,
-                isActive:       this.active,
+                text:                '',
+                value:               null,
+                over:                false,
+                isActive:            this.active,
+
+                /**
+                 * Searchable options
+                 */
                 searchEnabled:       false,
                 searchValue:         this.text,
-                searchFoundItems:    0,
-                searchAllItems:      0,
+                foundOptionsCount:   0
             };
         },
         mounted: function () {
@@ -378,6 +390,22 @@
             })
         },
         methods: {
+            allOptions() {
+                let result = [];
+
+                for (let option of (this.$children || [])) {
+                    if (
+                        typeof(option.visible) === 'boolean' &&
+                        typeof(option.getText) === 'function' &&
+                        typeof(option.getValue) === 'function'
+                    ) {
+                        result.push(option);
+                    }
+                }
+
+                return result;
+            },
+
             toggle(event) {
                 if (event && event.target && event.target.tagName.toString().toLowerCase() === 'input') {
                     return;
@@ -400,16 +428,12 @@
                 this.over = status;
             },
             resetSearch(event) {
-                this.searchEnabled    = false;
-                this.searchValue      = this.text;
+                this.searchEnabled     = false;
+                this.searchValue       = this.text;
+                this.foundOptionsCount = this.allOptions().length;
 
-                this.searchFoundItems
-                    = this.searchAllItems
-                    = this.$slots.default.length;
-
-                /** @param {VNode} node */
-                for (let node of (this.$slots.default || [])) {
-                    node.componentInstance.visible = true;
+                for (let node of this.allOptions()) {
+                    node.visible = true;
                 }
 
                 if (event) {
@@ -419,15 +443,15 @@
                 }
             },
             doSearch(needles, caseSensitive = false) {
-                this.searchFoundItems = 0;
+                this.foundOptionsCount = 0;
 
                 if (!caseSensitive) {
                     needles = needles.map(string => string.toString().toLowerCase());
                 }
 
-                for (let slot of this.$slots.default) {
+                for (let child of this.allOptions()) {
                     let visible  = false;
-                    let haystack = slot.componentInstance.getText();
+                    let haystack = child.getText();
 
                     if (!caseSensitive) {
                         haystack = haystack.toLowerCase();
@@ -436,12 +460,12 @@
                     for (let needle of needles) {
                         if (haystack.includes(needle)) {
                             visible = true;
-                            this.searchFoundItems++;
+                            this.foundOptionsCount++;
                             break;
                         }
                     }
 
-                    slot.componentInstance.visible = visible;
+                    child.visible = visible;
                 }
             },
             search(text) {
@@ -449,8 +473,6 @@
                     this.searchFuzzy ? text.trim().split(/\W+/) : [text],
                     this.searchCaseSensitive
                 );
-
-                this.searchAllItems = this.$slots.default.length;
 
                 this.searchValue = text;
                 this.searchEnabled = true;

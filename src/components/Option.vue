@@ -92,6 +92,9 @@
                 }
                 return '';
             },
+            getValue() {
+                return this.value || null;
+            },
             select() {
                 let value = {
                     text: this.getText(),

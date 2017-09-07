@@ -10896,6 +10896,9 @@ exports.default = {
 
             return '';
         },
+        getValue: function getValue() {
+            return this.value || null;
+        },
         select: function select() {
             var value = {
                 text: this.getText(),
@@ -12302,6 +12305,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
 
 exports.default = {
     props: (0, _extends3.default)({}, _Props2.default, {
@@ -12363,6 +12369,15 @@ exports.default = {
         placeholder: {
             type: String,
             default: 'Select a value...'
+        },
+
+        /**
+         *  Options
+         */
+        options: {
+            default: function _default() {
+                return [];
+            }
         }
     }),
     computed: {
@@ -12375,11 +12390,11 @@ exports.default = {
 
             this.$emit('toggle', this.isActive);
         },
-        searchFormattedDescriptionReset: function searchFormattedDescriptionReset() {
-            return this.searchDescriptionReset.replace('{found}', this.searchFoundItems).replace('{all}', this.searchAllItems).replace('{hidden}', this.searchHiddenItems);
+        hiddenOptionsCount: function hiddenOptionsCount() {
+            return this.allOptionsCount - this.foundOptionsCount;
         },
-        searchHiddenItems: function searchHiddenItems() {
-            return this.searchAllItems - this.searchFoundItems;
+        allOptionsCount: function allOptionsCount() {
+            return this.allOptions().length;
         },
         sizeToHeight: function sizeToHeight() {
             return this.size * 29 + 3;
@@ -12391,10 +12406,13 @@ exports.default = {
             value: null,
             over: false,
             isActive: this.active,
+
+            /**
+             * Searchable options
+             */
             searchEnabled: false,
             searchValue: this.text,
-            searchFoundItems: 0,
-            searchAllItems: 0
+            foundOptionsCount: 0
         };
     },
 
@@ -12416,6 +12434,38 @@ exports.default = {
         });
     },
     methods: {
+        allOptions: function allOptions() {
+            var result = [];
+
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = (0, _getIterator3.default)(this.$children || []), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var option = _step.value;
+
+                    if (typeof option.visible === 'boolean' && typeof option.getText === 'function' && typeof option.getValue === 'function') {
+                        result.push(option);
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return result;
+        },
         toggle: function toggle(event) {
             if (event && event.target && event.target.tagName.toString().toLowerCase() === 'input') {
                 return;
@@ -12440,97 +12490,17 @@ exports.default = {
         resetSearch: function resetSearch(event) {
             this.searchEnabled = false;
             this.searchValue = this.text;
-
-            this.searchFoundItems = this.searchAllItems = this.$slots.default.length;
-
-            /** @param {VNode} node */
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = (0, _getIterator3.default)(this.$slots.default || []), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var node = _step.value;
-
-                    node.componentInstance.visible = true;
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                this.isActive = true;
-            }
-        },
-        doSearch: function doSearch(needles) {
-            var caseSensitive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-            this.searchFoundItems = 0;
-
-            if (!caseSensitive) {
-                needles = needles.map(function (string) {
-                    return string.toString().toLowerCase();
-                });
-            }
+            this.foundOptionsCount = this.allOptions().length;
 
             var _iteratorNormalCompletion2 = true;
             var _didIteratorError2 = false;
             var _iteratorError2 = undefined;
 
             try {
-                for (var _iterator2 = (0, _getIterator3.default)(this.$slots.default), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var slot = _step2.value;
+                for (var _iterator2 = (0, _getIterator3.default)(this.allOptions()), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var node = _step2.value;
 
-                    var visible = false;
-                    var haystack = slot.componentInstance.getText();
-
-                    if (!caseSensitive) {
-                        haystack = haystack.toLowerCase();
-                    }
-
-                    var _iteratorNormalCompletion3 = true;
-                    var _didIteratorError3 = false;
-                    var _iteratorError3 = undefined;
-
-                    try {
-                        for (var _iterator3 = (0, _getIterator3.default)(needles), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                            var needle = _step3.value;
-
-                            if (haystack.includes(needle)) {
-                                visible = true;
-                                this.searchFoundItems++;
-                                break;
-                            }
-                        }
-                    } catch (err) {
-                        _didIteratorError3 = true;
-                        _iteratorError3 = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                                _iterator3.return();
-                            }
-                        } finally {
-                            if (_didIteratorError3) {
-                                throw _iteratorError3;
-                            }
-                        }
-                    }
-
-                    slot.componentInstance.visible = visible;
+                    node.visible = true;
                 }
             } catch (err) {
                 _didIteratorError2 = true;
@@ -12546,11 +12516,87 @@ exports.default = {
                     }
                 }
             }
+
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                this.isActive = true;
+            }
+        },
+        doSearch: function doSearch(needles) {
+            var caseSensitive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+            this.foundOptionsCount = 0;
+
+            if (!caseSensitive) {
+                needles = needles.map(function (string) {
+                    return string.toString().toLowerCase();
+                });
+            }
+
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
+
+            try {
+                for (var _iterator3 = (0, _getIterator3.default)(this.allOptions()), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                    var child = _step3.value;
+
+                    var visible = false;
+                    var haystack = child.getText();
+
+                    if (!caseSensitive) {
+                        haystack = haystack.toLowerCase();
+                    }
+
+                    var _iteratorNormalCompletion4 = true;
+                    var _didIteratorError4 = false;
+                    var _iteratorError4 = undefined;
+
+                    try {
+                        for (var _iterator4 = (0, _getIterator3.default)(needles), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                            var needle = _step4.value;
+
+                            if (haystack.includes(needle)) {
+                                visible = true;
+                                this.foundOptionsCount++;
+                                break;
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError4 = true;
+                        _iteratorError4 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                                _iterator4.return();
+                            }
+                        } finally {
+                            if (_didIteratorError4) {
+                                throw _iteratorError4;
+                            }
+                        }
+                    }
+
+                    child.visible = visible;
+                }
+            } catch (err) {
+                _didIteratorError3 = true;
+                _iteratorError3 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                        _iterator3.return();
+                    }
+                } finally {
+                    if (_didIteratorError3) {
+                        throw _iteratorError3;
+                    }
+                }
+            }
         },
         search: function search(text) {
             this.doSearch(this.searchFuzzy ? text.trim().split(/\W+/) : [text], this.searchCaseSensitive);
-
-            this.searchAllItems = this.$slots.default.length;
 
             this.searchValue = text;
             this.searchEnabled = true;
@@ -12636,14 +12682,20 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     }
   })])])], 2), _c('section', {
     staticClass: "dropdown"
-  }, [(_vm.searchFoundItems === 0) ? _c('div', {
+  }, [(_vm.foundOptionsCount === 0) ? _c('div', {
     staticClass: "not-found"
   }, [_vm._v("\n            " + _vm._s(_vm.searchDescriptionNotFound) + "\n        ")]) : _vm._e(), _c('div', {
     staticClass: "options",
     style: ({
       'max-height': _vm.sizeToHeight + 'px'
     })
-  }, [_vm._t("default")], 2)])], 1)
+  }, [_vm._l((_vm.options), function(text, value) {
+    return [_c('ui-option', {
+      attrs: {
+        "value": value
+      }
+    }, [_vm._v(_vm._s(text))])]
+  }), _vm._t("default")], 2)])], 1)
 }
 var staticRenderFns = []
 module.exports = { render: render, staticRenderFns: staticRenderFns }
@@ -12930,7 +12982,15 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
     &lt;ui-option value=&quot;4&quot;&gt;Fourth value&lt;/ui-option&gt;
     &lt;ui-option value=&quot;5&quot;&gt;Fifth value&lt;/ui-option&gt;
     &lt;ui-option value=&quot;6&quot;&gt;Sixth value&lt;/ui-option&gt;
-&lt;/ui-select&gt;</code></pre></td><td><ui-select :searchable="true"><ui-option value="1">First value</ui-option><ui-option value="2">Second value</ui-option><ui-option value="3">Third value</ui-option><ui-option value="4">Fourth value</ui-option><ui-option value="5">Fifth value</ui-option><ui-option value="6">Sixth value</ui-option></ui-select></td></tr></tbody></table><!-- TOOLTIP --><h2><a href="#tooltip" name="tooltip" class="anchor"></a>
+&lt;/ui-select&gt;</code></pre></td><td><ui-select :searchable="true"><ui-option value="1">First value</ui-option><ui-option value="2">Second value</ui-option><ui-option value="3">Third value</ui-option><ui-option value="4">Fourth value</ui-option><ui-option value="5">Fifth value</ui-option><ui-option value="6">Sixth value</ui-option></ui-select></td></tr><tr><td><pre><code>&lt;ui-select :searchable=&quot;true&quot; :options=&quot;{
+    1: 'First text',
+    2: 'Second text',
+    3: 'Third text'
+}&quot;&gt;&lt;/ui-select&gt;</code></pre></td><td><ui-select :searchable="true":options="{
+                    1: 'First text',
+                    2: 'Second text',
+                    3: 'Third text'
+                }"></ui-select></td></tr></tbody></table><!-- TOOLTIP --><h2><a href="#tooltip" name="tooltip" class="anchor"></a>
     Tooltip
 </h2><h3>Свойства</h3><table><thead><tr><td>Название</td><td>Тип</td><td>Значение по умолчанию</td><td>Описание</td></tr></thead><tbody><tr><td colspan="4"><span style="color: #ff4a22; font-weight: bold">
                     Родитель должен содержать <code>position: relative</code>,

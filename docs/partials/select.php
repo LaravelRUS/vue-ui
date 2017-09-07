@@ -254,5 +254,21 @@
                 </ui-select>
             </td>
         </tr>
+        <tr>
+            <td>
+                <pre><code><?=htmlspecialchars('<ui-select :searchable="true" :options="{
+    1: \'First text\',
+    2: \'Second text\',
+    3: \'Third text\'
+}"></ui-select>')?></code></pre>
+            </td>
+            <td>
+                <ui-select :searchable="true":options="{
+                    1: 'First text',
+                    2: 'Second text',
+                    3: 'Third text'
+                }"></ui-select>
+            </td>
+        </tr>
     </tbody>
 </table>
