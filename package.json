@@ -1,6 +1,6 @@
 {
     "private": true,
-    "main": "index.js",
+    "main": "src/index.js",
     "scripts": {
         "build": "cross-env BABEL_ENV=production ./node_modules/.bin/webpack -p --config webpack.conf.js",
         "watch": "cross-env BABEL_ENV=dev ./node_modules/.bin/webpack -p --config webpack.conf.js --progress --colors --watch"
@@ -31,9 +31,5 @@
         "vue-loader": "^13.0.1",
         "vue-template-compiler": "^2.3.4",
         "webpack": "^3.2.0"
-    },
-    "dependencies": {
-        "vue": "^2.3",
-        "babel-polyfill": "^6.26"
     }
 }

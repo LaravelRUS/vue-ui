@@ -1,3 +1,10 @@
+/**
+ *
+ * Naming convention:
+ *  "ui-xxx" using for UI components
+ *  "v-xxx" using for virtual elements
+ *
+ */
 export default {
     /**
      * Virtual elements (prefixed with "v")
@@ -7,16 +14,19 @@ export default {
     /**
      * Support UI Elements
      */
-    'loading': 'Loading',
-    'tooltip': 'Tooltip',
+    'ui-loading': 'Loading',
+    'ui-tooltip': 'Tooltip',
 
     /**
      * UI Elements
      */
-    'text':     'Text',
-    'select':   'Select',
-    'option':   'Option',
-    'button':   'Button',
-    'checkbox': 'Checkbox',
-    'password': 'Password',
+    'ui-text':     'Text',
+    'ui-password': 'Password',
+
+    'ui-select':   'Select',
+    'ui-option':   'Option',
+
+    'ui-button':   'Button',
+
+    'ui-checkbox': 'Checkbox',
 }
