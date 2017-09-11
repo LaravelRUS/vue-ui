@@ -259,6 +259,12 @@
                 </template>
                 <slot></slot>
             </div>
+
+            <template v-if="hiddenOptionsCount() !== 0">
+                <ui-button view="flat" @click="resetSearch">
+                    {{ searchDescriptionReset.replace('{hidden}', hiddenOptionsCount()) }}
+                </ui-button>
+            </template>
         </section>
     </section>
 </template>
@@ -313,6 +319,13 @@
                 type: String,
                 default: 'No items found'
             },
+            /**
+             * Description button
+             */
+            searchDescriptionReset: {
+                type: String,
+                default: '{hidden} more items are hidden.'
+            },
 
             /**
              * Maximum elements
@@ -349,12 +362,6 @@
 
                 this.$emit('toggle', this.isActive);
             },
-            hiddenOptionsCount() {
-                return this.allOptionsCount - this.foundOptionsCount;
-            },
-            allOptionsCount() {
-                return this.allOptions().length;
-            },
             sizeToHeight() {
                 return this.size * 29 + 3;
             }
@@ -390,6 +397,12 @@
             })
         },
         methods: {
+            allOptionsCount() {
+                return this.allOptions().length;
+            },
+            hiddenOptionsCount() {
+                return this.allOptionsCount() - this.foundOptionsCount;
+            },
             allOptions() {
                 let result = [];
 
@@ -470,7 +483,7 @@
             },
             search(text) {
                 this.doSearch(
-                    this.searchFuzzy ? text.trim().split(/\W+/) : [text],
+                    this.searchFuzzy ? text.trim().split(/[\h\s]+/g) : [text],
                     this.searchCaseSensitive
                 );
 
