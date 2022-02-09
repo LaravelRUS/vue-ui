@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,400i,700,700i&subset=cyrillic"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700,700i" />
     <script src="https://unpkg.com/babel-polyfill@6.26.0/dist/polyfill.min.js"></script>
-    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
 
     <!-- Load an Application files -->
     <style><?php
